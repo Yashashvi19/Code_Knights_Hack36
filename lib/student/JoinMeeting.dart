@@ -12,7 +12,6 @@ import 'HomePage.dart';
 
 const _API_URL = 'http://192.168.1.4:3000/student';
 
-
 class StartMeeting extends StatefulWidget {
   StudentDetails details;
 

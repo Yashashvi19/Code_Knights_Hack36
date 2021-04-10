@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'SearchPeerPage.dart';
 import 'SelectedCoursePage.dart';
 import 'StudentDetails.dart';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 String name;
@@ -160,13 +161,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             // onTap: null,
           ),
 
-          ListTile(
-            leading: Icon(Icons.school),
-            title: Text('Find Teachers', style:TextStyle(fontSize: 18,
-            ),
-            ),
-            onTap: null,
-          ),
+
 
           ListTile(
             leading: Icon(Icons.video_call),
