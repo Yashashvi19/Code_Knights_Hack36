@@ -5,8 +5,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'HomePage.dart';
 import 'StudentDetails.dart';
+import 'package:flutter_string_encryption/flutter_string_encryption.dart';
+import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
-const REGISTER_API_URL = 'http://192.168.1.4:3000/student';
+const REGISTER_API_URL = 'http://192.168.43.41:3000/student';
 
 class SignUpPage extends StatefulWidget {
 
@@ -16,6 +18,7 @@ class SignUpPage extends StatefulWidget {
   }
 
   class _SignUpPageState extends State<SignUpPage> {
+    final cryptor = new PlatformStringCryptor();
   bool vis=true;
   String valuechoose;
   String coursechosen;

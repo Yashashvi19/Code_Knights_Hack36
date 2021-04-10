@@ -4,6 +4,8 @@ import 'SelectedCoursePage.dart';
 import 'StudentDetails.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'WelcomePage.dart';
 String name;
 String username;
 String email;
@@ -189,7 +191,14 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             title: Text('Logout', style:TextStyle(fontSize: 18,
             ),
             ),
-            onTap: null,
+            onTap: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder:
+                          (context) => WelcomePage()),
+                      (Route route)=>false
+              );
+            },
           ),
 
 
