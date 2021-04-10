@@ -36,6 +36,7 @@ dependencies:
   zefyr: ^0.6.0
   quill_delta: ^1.0.1
   email_auth:
+  flutter_string_encryption: ^0.3.1
 
 dev_dependencies:
   flutter_test:
