@@ -115,7 +115,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SearchPeerPage(course),
+                  builder: (context) => SearchPeerPage(course,username),
                 ));
               },
               child: Text('Find Peers from same course',
@@ -162,7 +162,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             // onTap: null,
           ),
 
-          ListTile(
+          /*ListTile(
             leading: Icon(Icons.school),
             title: Text('Find Teachers', style:TextStyle(fontSize: 18,
             ),
@@ -172,19 +172,15 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
 
           ListTile(
             leading: Icon(Icons.video_call),
-            title: Text('Schedule Study session', style:TextStyle(fontSize: 18,
+            title: Text('Your Notes', style:TextStyle(fontSize: 18,
             ),
             ),
-            onTap: null,
-          ),
-
-          ListTile(
-            leading: Icon(Icons.remove_red_eye_outlined),
-            title: Text('View current meeting schedule', style:TextStyle(fontSize: 18,
-            ),
-            ),
-            onTap:  null,
-          ),
+            onTap: null/*() {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => YourNotes(),
+              ));
+            },*/
+          ),*/
 
           ListTile(
             leading: Icon(Icons.arrow_back),

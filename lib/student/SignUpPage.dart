@@ -8,7 +8,7 @@ import 'StudentDetails.dart';
 import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
-const REGISTER_API_URL = 'http://192.168.43.41:3000/student';
+const REGISTER_API_URL = 'http://192.168.1.100:3000/student';
 
 class SignUpPage extends StatefulWidget {
 
