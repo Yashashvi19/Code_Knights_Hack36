@@ -1,6 +1,6 @@
 let users = [];
 
-function joinUser(chatId, roomName, userName) {
+function joinUser(chatId, userName, roomName) {
   const user = {
     id: chatId,
     roomName: roomName,

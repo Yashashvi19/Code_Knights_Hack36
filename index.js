@@ -53,13 +53,21 @@ io.on("connection", (socket) => {
     console.log(`in room ${data}`);
     console.log(data);
     let newUser = joinUser(socket.id, data.userName, data.roomName);
-    io.emit("send-data", newUser);
+    socket.broadcast.emit("user-joined", newUser);
+    socket.emit("assign-id", newUser);
     room = newUser.roomName;
     console.log("room" + JSON.stringify(newUser));
     socket.join(newUser.roomName);
   });
-  socket.on("chat message", (data) => {
-    socket.to(room).emit("chat message", { data: data, id: socket.id });
+
+  socket.on("send_message", (data) => {
+    data = JSON.parse(data);
+    console.log(data);
+    socket.to(room).emit("chat message", {
+      msg: data.msg,
+      user: data.user,
+      id: data.id,
+    });
   });
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);

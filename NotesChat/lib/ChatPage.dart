@@ -1,15 +1,22 @@
+import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'UserStruct.dart';
 import 'message.dart';
+import 'dart:math' as math;
 
 class Chat extends StatefulWidget {
   var myObject;
   var userName;
+  var recieverid;
+  var roomName;
+  var id;
   Chat({
-    this.myObject, this.userName
+    this.myObject, this.userName, this.roomName,this.id,this.recieverid
 });
   @override
   _ChatState createState() => _ChatState();
@@ -19,48 +26,126 @@ class _ChatState extends State<Chat> {
   List<Message> messages;
   double height, width;
   TextEditingController textController;
-  ScrollController scrollController;
+  ScrollController scrollController = ScrollController();
+  HashMap<String,UserStruct> users;
+  HashMap<String,Color> userColors;
+  UserStruct u;
+
+  @override
   void initState() {
     // TODO: implement initState
-    super.initState();
+    print("hii");
+    int flag=0;
     messages = List<Message>();
+    users = HashMap();
+    userColors = HashMap();
     //Initializing the TextEditingController and ScrollController
     textController = TextEditingController();
-    scrollController = ScrollController();
-    widget.myObject.on('chat message',(jsonDecode(jsondata))=>{
-     displayMessage(jsondata);
+    widget.myObject.on('assign-id',(data) {
+      print(data);
+      u= UserStruct(data['id'], data['userName'], data['roomName'], Colors.lightBlue[200]);
     });
+    widget.myObject.on('user-joined', (data) {}
+    );
+    addUserIfNotPresent(userId,userName){
+    if(!users.containsKey(userId)) {
+      Color assignedColor = Color(
+          (math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+      users[userId] = UserStruct(userId, userName, u.roomName, assignedColor);
+    }
+      }
+    widget.myObject.on('chat message', (data) {
+      addUserIfNotPresent(data['id'], data['user']);
+      this.setState(() {
+        messages.add(Message(data['msg'], users[data['id']]));
+      });
+      // scrollController.animateTo(
+      //   scrollController.position.maxScrollExtent,
+      //   duration: Duration(milliseconds: 600),
+      //   curve: Curves.ease,
+      // );
+    });
+    super.initState();
   }
+
   Widget buildSingleMessage(int index) {
+    print( messages[index].sender.id == u.id);
+    return Container(
+      alignment: messages[index].sender.id == u.id?Alignment.centerLeft:Alignment.centerRight ,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 15.0),
+        margin: const EdgeInsets.only(bottom: 20.0, left: 20.0),
+        decoration: BoxDecoration(
+          color: messages[index].sender.color,
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Column(
+            children: [
+              Text(
+                messages[index].sender.userName,
+                style: TextStyle(color: Colors.red[600], fontSize: 10.0),
+              ),
+              Text(
+                messages[index].text,
+                style: TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+
+            ]
+        ),
+      ),
+    );
+  }
+
+  Widget buildSingleMessageRec(int index) {
     return Container(
       alignment: Alignment.centerLeft,
       child: Container(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 15.0),
         margin: const EdgeInsets.only(bottom: 20.0, left: 20.0),
         decoration: BoxDecoration(
-          color: Colors.deepPurple,
+          color: Colors.black,
           borderRadius: BorderRadius.circular(20.0),
         ),
-        child: Text(
-          messages[index],
-          style: TextStyle(color: Colors.white, fontSize: 15.0),
+        child: Column(
+            children: [
+              Text(
+                messages[index].sender.userName,
+                style: TextStyle(color: Colors.red[600], fontSize: 10.0),
+              ),
+              Text(
+                messages[index].text,
+                style: TextStyle(color: Colors.white, fontSize: 15.0),
+              ),
+
+            ]
         ),
       ),
     );
   }
 
   Widget buildMessageList() {
-    return Container(
-      height: height * 0.8,
-      width: width,
-      child: ListView.builder(
-        controller: scrollController,
-        itemCount: messages.length,
-        itemBuilder: (BuildContext context, int index) {
-          return buildSingleMessage(index);
-        },
-      ),
-    );
+    return
+      Container(
+        height: height * 0.8,
+        width: width,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: SingleChildScrollView(
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              controller: scrollController,
+              itemCount: messages.length,
+              itemBuilder: (BuildContext context, int index) {
+
+                return buildSingleMessage(index);
+
+              },
+            ),
+          ),
+        ),
+
+      );
   }
 
   Widget buildChatInput() {
@@ -84,17 +169,24 @@ class _ChatState extends State<Chat> {
         //Check if the textfield has text or not
         if (textController.text.isNotEmpty) {
           //Send the message as JSON data to send_message event
-          widget.myObject.on(
-              'send_message', jsonEncode({'message': textController.text}));
+          widget.myObject.emit(
+              'send_message', json.encode(
+              {'msg': textController.text, 'user': widget.userName,'id':widget.id}));
           //Add the message to the list
-          this.setState(() => messages.add(Message(textController.text,widget.userName)));
+          this.setState((){
+            messages = [...messages]..add(Message(textController.text, u));
+            Timer(Duration(milliseconds: 3000),() {
+              print("scrolled");
+              scrollController.animateTo(
+                  scrollController.position.maxScrollExtent,
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.fastOutSlowIn);
+            });
+          });
           textController.text = '';
-          //Scrolldown the list to show the latest message
-          scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 600),
-            curve: Curves.ease,
-          );
+          // Scrolldown the list to show the latest message
+          //   scrollController.position.maxScrollExtent,
+
         }
       },
       child: Icon(
@@ -119,10 +211,42 @@ class _ChatState extends State<Chat> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    return MaterialApp(
+        home: Scaffold(
+          // resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              title: Text(widget.roomName.toString()),
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: height * 0.05),
+                  buildMessageList(),
+                  buildInputArea(),
+                ],
+              ),
+            )
+        )
+    );
   }
-}
-Widget displayMessage(Message message){
 
+  int sender(String id) {
+    if (widget.id==null||id==null) {
 
+         return 1;
+    }
+   else if(id.compareTo(widget.id) == 0){
+     return 1;
+   }
+      return 0;
+
+  }
 }
