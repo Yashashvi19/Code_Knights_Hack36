@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'HomePage.dart';
 
-const _API_URL = 'http://192.168.224.1:3000/student';
+const _API_URL = 'http://192.168.1.4:3000/student';
 
 
 class StartMeeting extends StatefulWidget {
