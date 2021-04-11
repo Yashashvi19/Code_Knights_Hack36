@@ -27,17 +27,17 @@ https://drive.google.com/file/d/1pfyNHDD75iUOSM_lPHGvs5kivbLmOp4J/view?usp=shari
 ## Table of Content
 
 ### Technology Stack:
-1.Flutter
+1. Flutter
 2. Dart,
 3. NodeJS
 4. MongoDB
 
 ### Contributors:
 Team Name: Code_Knights
-1.Yashashvi Goyal
-2.Anjali Dwivedi
-3.Urvashi Gupta
-4.Preeti Roj
+* Yashashvi Goyal
+* Anjali Dwivedi
+* Urvashi Gupta
+* Preeti Roj
 
 
 #### Made at:
