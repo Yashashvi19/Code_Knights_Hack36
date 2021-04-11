@@ -169,7 +169,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             ),
             ),
             onTap: null,
-          ),*/
+          ),
 
           ListTile(
             leading: Icon(Icons.video_call),
@@ -181,7 +181,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
                 builder: (context) => YourNotes(username),
               ));
             },
-          ),
+          )*/,
 
           ListTile(
             leading: Icon(Icons.arrow_back),
