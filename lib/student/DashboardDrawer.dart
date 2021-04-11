@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'WelcomePage.dart';
+import 'YourNotes.dart';
 String name;
 String username;
 String email;
@@ -168,19 +169,19 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             ),
             ),
             onTap: null,
-          ),
+          ),*/
 
           ListTile(
             leading: Icon(Icons.video_call),
             title: Text('Your Notes', style:TextStyle(fontSize: 18,
             ),
             ),
-            onTap: null/*() {
+            onTap:() {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => YourNotes(),
+                builder: (context) => YourNotes(username),
               ));
-            },*/
-          ),*/
+            },
+          ),
 
           ListTile(
             leading: Icon(Icons.arrow_back),
