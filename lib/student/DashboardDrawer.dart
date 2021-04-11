@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'SearchPeerPage.dart';
 import 'SelectedCoursePage.dart';
 import 'StudentDetails.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:study_hub/chat/Client.dart';
 import 'WelcomePage.dart';
+import 'YourNotes.dart';
 String name;
 String username;
 String email;
@@ -116,7 +116,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SearchPeerPage(course),
+                  builder: (context) => SearchPeerPage(username,course),
                 ));
               },
               child: Text('Find Peers from same course',
@@ -163,24 +163,36 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             // onTap: null,
           ),
 
-
-
-          ListTile(
-            leading: Icon(Icons.video_call),
-            title: Text('Schedule Study session', style:TextStyle(fontSize: 18,
+          /*ListTile(
+            leading: Icon(Icons.school),
+            title: Text('Find Teachers', style:TextStyle(fontSize: 18,
             ),
             ),
             onTap: null,
-          ),
+          ),*/
 
           ListTile(
-            leading: Icon(Icons.remove_red_eye_outlined),
-            title: Text('View current meeting schedule', style:TextStyle(fontSize: 18,
+            leading: Icon(Icons.video_call),
+            title: Text('Your Notes', style:TextStyle(fontSize: 18,
             ),
             ),
-            onTap:  null,
+            onTap:  (){
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => YourNotes(username),
+              ));
+            },
           ),
-
+          ListTile(
+            leading: Icon(Icons.school),
+            title: Text('StudyRoom-Chat', style:TextStyle(fontSize: 18,
+            ),
+            ),
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ChatPage(username),
+              ));
+            },
+          ),
           ListTile(
             leading: Icon(Icons.arrow_back),
             title: Text('Logout', style:TextStyle(fontSize: 18,

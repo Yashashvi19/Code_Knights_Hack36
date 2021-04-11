@@ -19,10 +19,31 @@ class HomePage extends StatelessWidget{
       ),
           drawer: DashboardDrawer(details),
           body: Container(
-            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.white, Colors.lightBlueAccent],
+                  begin: const FractionalOffset(0.0, 1.0),
+                  end: const FractionalOffset(0.0, 1.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.repeated,
+                ),
+              ),
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget> [
+                Text(
+                  'Any student from any corner of the world is just a click away.\nStart a discussion on any topic, '+
+                  'discuss your doubts and much more!',
+                  style: TextStyle(
+                    fontSize: 20
+                  ),
+                ),
+                SizedBox(
+                  //height: 10,
+                  height: 40,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -80,12 +101,6 @@ class HomePage extends StatelessWidget{
                     ),
                   ],
                 ),
-                Text(
-                  'Welcome to the Dashboard!',
-                  style: TextStyle(
-                  ),
-                ),
-
               ]
             )
           )
