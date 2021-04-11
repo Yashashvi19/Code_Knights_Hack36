@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:grp_study/ChatPage.dart';
-import 'package:grp_study/UserStruct.dart';
+import 'ChatPage.dart';
+import 'UserStruct.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
