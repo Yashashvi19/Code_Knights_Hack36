@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:study_hub/chat/Client.dart';
 import 'WelcomePage.dart';
+import 'YourNotes.dart';
 String name;
 String username;
 String email;
@@ -175,7 +176,11 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             title: Text('Your Notes', style:TextStyle(fontSize: 18,
             ),
             ),
-            onTap:  null,
+            onTap:  (){
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => YourNotes(username),
+              ));
+            },
           ),
           ListTile(
             leading: Icon(Icons.school),
