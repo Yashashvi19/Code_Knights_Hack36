@@ -2,7 +2,7 @@ import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 String course;
-const REGISTER_API_URL = 'http://192.168.1.4:3000/student';
+const REGISTER_API_URL = 'http://192.168.1.6:3000/student';
 class SelectedCoursePage extends StatefulWidget {
 
   SelectedCoursePage(String _course){

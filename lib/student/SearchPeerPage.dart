@@ -1,14 +1,16 @@
 import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:study_hub/chat/ChatPage.dart';
 String course;
-String username;
-const REGISTER_API_URL = 'http://192.168.1.100:3000/student';
+String _username;
+
+const REGISTER_API_URL = 'http://192.168.1.6:3000/student';
 class SearchPeerPage extends StatefulWidget {
 
-  SearchPeerPage(String _course, String _username){
+  SearchPeerPage(String username,String _course){
     course = _course;
-    username=_username;
+    _username = username;
   }
 
   @override
@@ -24,6 +26,7 @@ class _SearchPeerPageState extends State<SearchPeerPage> {
  Future getList() async {
     var url=REGISTER_API_URL+"/list";
     //StudentDetails studentDetails;
+    print(course);
     final http.Response response = await http.post(
         Uri.parse(url),
         headers: <String, String>{
@@ -61,32 +64,41 @@ class _SearchPeerPageState extends State<SearchPeerPage> {
       body: new ListView.builder(
         itemCount: listItem==null? 0:listItem.length,
           itemBuilder: (BuildContext context, i){
-          if(listItem[i]['username']!=username) {
-            return new ListTile(
-              isThreeLine: true,
-              title: new Text(listItem[i]["name"]),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          return new ListTile(
+            isThreeLine: true,
+            title: new Text(listItem[i]["name"]),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
 
-                children: <Widget>[
-                  new Text("Institute:  " + listItem[i]["institute"]),
-                  new Text("Specialization:  " + listItem[i]["specialization"]),
+              children: <Widget>[
+                new Text("Institute:  "+listItem[i]["institute"]),
+                new Text("Specialization:  "+listItem[i]["specialization"]),
 
-                  new Text("MailId:  " + listItem[i]["email"]),
+                new Text("MailId:  "+listItem[i]["email"]),
 
-                ],
-              ),
-              //new Text("INSTITUTE:  "+listItem[i]["institute"]),
-              leading: new CircleAvatar(
-                backgroundImage: new NetworkImage(
-                    'https://cdn1.iconfinder.com/data/icons/instagram-ui-colored/48/JD-17-512.png'),
-              ),
-              onTap: () {},
-            );
-          // ignore: missing_return
-          }
-          else
-            return null;
+              ],
+            ),
+            //new Text("INSTITUTE:  "+listItem[i]["institute"]),
+            leading: new CircleAvatar(
+              backgroundImage: new NetworkImage('https://cdn1.iconfinder.com/data/icons/instagram-ui-colored/48/JD-17-512.png'),
+            ),
+          onTap: (){
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (__){
+                      var jUsers = [];
+                      jUsers.add(_username);
+                      jUsers.add(listItem[i]['username']);
+                      jUsers.sort();
+                      String roomname = jUsers.join("-");
+
+                     return new Chat(userName:_username,roomName:roomname);
+          }));
+
+          },
+
+          );
           }
       ),
 
