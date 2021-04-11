@@ -1,12 +1,16 @@
 import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:study_hub/chat/ChatPage.dart';
 String course;
-const REGISTER_API_URL = 'http://192.168.1.4:3000/student';
+String _username;
+
+const REGISTER_API_URL = 'http://192.168.1.6:3000/student';
 class SearchPeerPage extends StatefulWidget {
 
-  SearchPeerPage(String _course){
+  SearchPeerPage(String username,String _course){
     course = _course;
+    _username = username;
   }
 
   @override
@@ -22,6 +26,7 @@ class _SearchPeerPageState extends State<SearchPeerPage> {
  Future getList() async {
     var url=REGISTER_API_URL+"/list";
     //StudentDetails studentDetails;
+    print(course);
     final http.Response response = await http.post(
         Uri.parse(url),
         headers: <String, String>{
@@ -77,7 +82,21 @@ class _SearchPeerPageState extends State<SearchPeerPage> {
             leading: new CircleAvatar(
               backgroundImage: new NetworkImage('https://cdn1.iconfinder.com/data/icons/instagram-ui-colored/48/JD-17-512.png'),
             ),
-          onTap: (){},
+          onTap: (){
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (__){
+                      var jUsers = [];
+                      jUsers.add(_username);
+                      jUsers.add(listItem[i]['username']);
+                      jUsers.sort();
+                      String roomname = jUsers.join("-");
+
+                     return new Chat(userName:_username,roomName:roomname);
+          }));
+
+          },
 
           );
           }

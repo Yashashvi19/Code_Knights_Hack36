@@ -4,7 +4,7 @@ import 'SelectedCoursePage.dart';
 import 'StudentDetails.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:study_hub/chat/Client.dart';
 import 'WelcomePage.dart';
 String name;
 String username;
@@ -115,7 +115,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SearchPeerPage(course),
+                  builder: (context) => SearchPeerPage(username,course),
                 ));
               },
               child: Text('Find Peers from same course',
@@ -185,7 +185,17 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             ),
             onTap:  null,
           ),
-
+          ListTile(
+            leading: Icon(Icons.school),
+            title: Text('StudyRoom-Chat', style:TextStyle(fontSize: 18,
+            ),
+            ),
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ChatPage(username),
+              ));
+            },
+          ),
           ListTile(
             leading: Icon(Icons.arrow_back),
             title: Text('Logout', style:TextStyle(fontSize: 18,
