@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'WelcomePage.dart';
-import 'YourNotes.dart';
+//import 'YourNotes.dart';
 String name;
 String username;
 String email;
@@ -181,8 +181,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
                 builder: (context) => YourNotes(username),
               ));
             },
-          )*/,
-
+          )*/
           ListTile(
             leading: Icon(Icons.arrow_back),
             title: Text('Logout', style:TextStyle(fontSize: 18,
