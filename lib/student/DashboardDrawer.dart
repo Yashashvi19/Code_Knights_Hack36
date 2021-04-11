@@ -172,7 +172,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
           ),*/
 
           ListTile(
-            leading: Icon(Icons.video_call),
+            leading: Icon(Icons.note),
             title: Text('Your Notes', style:TextStyle(fontSize: 18,
             ),
             ),

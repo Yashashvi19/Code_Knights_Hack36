@@ -9,11 +9,13 @@ import 'package:http/http.dart' as http;
 
 const _API_URL = 'http://192.168.1.100:3000/student';
 String username;
+String content;
 
 class CreateNote extends StatefulWidget {
 
-  CreateNote(String _username){
+  CreateNote(String _username,String _content){
     username=_username;
+    content=_content;
   }
 
   //WelcomePage({Key key}) : super(key:key);
@@ -84,8 +86,13 @@ class _CreateNoteState extends State<CreateNote> {
   }
 
   NotusDocument _loadDocument(){
-    final Delta delta=Delta()..insert("Insert text here\n");
-    return NotusDocument.fromDelta(delta);
+    if(content=="") {
+      final Delta delta = Delta()
+        ..insert("Insert text here\n");
+      return NotusDocument.fromDelta(delta);
+    }
+    else
+      return NotusDocument.fromJson(jsonDecode(content));
   }
 
   void save(String topic) async {

@@ -5,7 +5,7 @@ import 'package:study_hub/chat/ChatPage.dart';
 String course;
 String _username;
 
-const REGISTER_API_URL = 'http://192.168.1.6:3000/student';
+const REGISTER_API_URL = 'http://192.168.1.4:3000/student';
 class SearchPeerPage extends StatefulWidget {
 
   SearchPeerPage(String username,String _course){
