@@ -7,7 +7,7 @@ import 'package:study_hub/student/YourNotes.dart';
 import 'package:zefyr/zefyr.dart';
 import 'package:http/http.dart' as http;
 
-const _API_URL = 'http://192.168.1.4:3000/student';
+const _API_URL = 'http://192.168.1.100:3000/student';
 String username;
 String content;
 

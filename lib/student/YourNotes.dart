@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'CreateNote.dart';
 
-const REGISTER_API_URL = 'http://192.168.1.4:3000/student';
+const REGISTER_API_URL = 'http://192.168.1.100:3000/student';
 String username;
 
 class YourNotes extends StatefulWidget {
